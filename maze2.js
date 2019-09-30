@@ -15,35 +15,29 @@ let maze = [
 
 //s ask e => base R => 0, 0+1, D => 0+1, 0
 
-function solveMaze(maze, row=0, column=0) {
-    let mazeCopy = maze.map(row => [...row]);
-    console.log(mazeCopy);
+function solveMaze(maze, row=0, column=0, currentPath='') {
+    //check row and column are not below zero
+    if (row < 0 || column < 0) {
+        return '';
+    }
+    if(row >= maze.length || column >= maze[0].length) {
+        return '';
+    }
     
-    if (mazeCopy[row][column] === 'e') {
-        return mazeCopy;
+    if (maze[row][column] === 'e') {
+        console.log(currentPath);  
+        return '';
     }
-    //test if go right
-    if (mazeCopy[row][column + 1] === ' ' || mazeCopy[row][column + 1] === 'e') {
-        mazeCopy[row][column] = 'R';
-        solveMaze(mazeCopy, row, column + 1);
+    if (maze[row][column] === ' '){
+        maze[row][column] = 'x';
+        solveMaze(maze, row, column + 1, currentPath + 'R');
+        solveMaze(maze, row + 1, column, currentPath + 'D');
+        solveMaze(maze, row, column - 1, currentPath + 'L');
+        solveMaze(maze, row - 1, column, currentPath + 'U');
+        maze[row][column] = ' ';
     }
-    //test if go down
-    if (mazeCopy[row + 1][column] === ' ' || mazeCopy[row + 1][column] === 'e') {
-        mazeCopy[row][column] = 'D';
-        solveMaze(mazeCopy, row + 1, column);
-    }
-    //test if go left
-    if (mazeCopy[row][column - 1] === ' '  || mazeCopy[row][column - 1] === 'e') {
-        mazeCopy[row][column] = 'L';
-        solveMaze(mazeCopy, row, column - 1);
-    }
-    //test if go up
-    // if (mazeCopy[row - 1][column] === ' ' || mazeCopy[row - 1][column] === 'e') {
-    //     mazeCopy[row][column] = 'U';
-    //     solveMaze(mazeCopy, row - 1, column);
-    // }
 }
 
-console.log(solveMaze(mySmallMaze));
+solveMaze(mySmallMaze);
 
-// console.log(solveMaze(maze));
+solveMaze(maze);
