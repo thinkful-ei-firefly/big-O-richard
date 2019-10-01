@@ -5,12 +5,14 @@
 
 let solution = [1, 1];
 
-function fibonacci(num) {
-    if(num < 2) {
-        return solution;
+function fibonacci(num, solution = [1, 1]) {
+    if(num <= 2) {
+        return solution; // O(1)
     }
     solution.push(solution[solution.length-1] + solution[solution.length-2]);
-    return fibonacci(num-1);
+    return fibonacci(num-1, solution); // O(n)
 }
 
 console.log(fibonacci(7)); //13
+
+// overall O(n)
