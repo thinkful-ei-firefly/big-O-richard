@@ -9,8 +9,7 @@
 4   6%2 =>0
 2  12%2 =>0
 1  25%2 =>1
- */
-
+*/
 
 function binaryRepresentation(n) {
     if (n <= 0) { 
